@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class DummyDummyDelegate;
+@class DummyDummyDelegate, DummyDummy;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -140,6 +140,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Dummy")))
 @interface DummyDummy : DummyBase
 - (instancetype)initWithDelegate:(DummyDummyDelegate *)delegate __attribute__((swift_name("init(delegate:)"))) __attribute__((objc_designated_initializer));
+- (void)fetchCallback:(void (^)(NSString *))callback __attribute__((swift_name("fetch(callback:)")));
 - (NSString *)getValue __attribute__((swift_name("getValue()")));
 @end;
 
@@ -149,6 +150,15 @@ __attribute__((swift_name("DummyDelegate")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (NSString *)getValue __attribute__((swift_name("getValue()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("IOSClient")))
+@interface DummyIOSClient : DummyBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (void)fetchCallback:(void (^)(NSString *))callback __attribute__((swift_name("fetch(callback:)")));
+@property (readonly) DummyDummy *dummy __attribute__((swift_name("dummy")));
 @end;
 
 #pragma clang diagnostic pop
